@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Piano Keyboard with Animation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #393333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .keyboard {
+      display: flex;
+      justify-content: center;
+    }
+
+    .key {
+      width: 40px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 0 2px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .white-key {
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    .black-key {
+      background-color: #000;
+      width: 30px;
+      height: 100px;
+      position: relative;
+      z-index: 1;
+      margin-left: -15px;
+      margin-right: -15px;
+      border-radius: 2px;
+    }
+
+    .black-key:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 60px;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .pressed {
+      background-color: #3498db !important;
+      transform: scale(1.0);
+    }
+  </style>
+</head>
+<body>
+  <div class="keyboard">
+    <div class="key white-key" onclick="playSound('C', this)"></div>
+    <div class="key black-key" onclick="playSound('C%23', this)"></div>
+    <div class="key white-key" onclick="playSound('D', this)"></div>
+    <div class="key black-key" onclick="playSound('D%23', this)"></div>
+    <div class="key white-key" onclick="playSound('E', this)"></div>
+    <div class="key white-key" onclick="playSound('F', this)"></div>
+    <div class="key black-key" onclick="playSound('F%23', this)"></div>
+    <div class="key white-key" onclick="playSound('G', this)"></div>
+    <div class="key black-key" onclick="playSound('G%23', this)"></div>
+    <div class="key white-key" onclick="playSound('A2', this)"></div>
+    <div class="key black-key" onclick="playSound('A2_sharp', this)"></div>
+    <div class="key white-key" onclick="playSound('B2', this)"></div>
+</div>
+
+  <script>
+    function playSound(note, keyElement) {
+      var sound = new Howl({
+        src: [`24-piano-keys/${note}.mp3`],
+        volume: 1,
+      });
+
+      sound.play();
+
+      keyElement.classList.add('pressed');
+
+      setTimeout(function() {
+        keyElement.classList.remove('pressed');
+      }, 100);
+    }
+  </script>
+</body>
+</html>
